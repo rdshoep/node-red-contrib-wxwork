@@ -1,0 +1,72 @@
+<script type="text/html" data-template-name="wxwork-app-parseChatMsg">
+  <div class="form-row">
+    <label
+      style="width: auto; margin-left: 20px; margin-right: 10px;"
+      for="node-input-app"
+    >
+      <i class="fa fa-globe"></i>
+      <span data-i18n="wxwork-app-parseChatMsg.label.app"></span>
+    </label>
+    <input type="text" style="width: 270px" id="node-input-app" />
+  </div>
+  <div class="form-row">
+    <label
+      style="width: auto; margin-left: 20px; margin-right: 10px;"
+      for="node-input-mode"
+    >
+      <i class="fa fa-globe"></i>
+      <span data-i18n="wxwork-app-parseChatMsg.label.mode"></span>
+    </label>
+    <input type="text" id="node-input-mode" />
+  </div>
+</script>
+
+<script type="text/javascript">
+  const MODE_OPTIONS = [
+    { value: 'default', i18n: 'wxwork-app-parseChatMsg.parseMode' },
+    { value: 'auth', i18n: 'wxwork-app-parseChatMsg.authMode' },
+  ];
+  RED.nodes.registerType('wxwork-app-parseChatMsg', {
+    defaults: {
+      app: {
+        type: 'wxwork app',
+        required: true,
+      },
+      mode: {
+        value: MODE_OPTIONS[0].value,
+      },
+    },
+    category: 'wxwork',
+    color: '#338CFF',
+    label: function () {
+      const node = this;
+      return [
+        node._('wxwork-app-parseChatMsg.chat'),
+        node._(MODE_OPTIONS.find((item) => item.value === node.mode).i18n),
+      ].join(': ');
+    },
+    paletteLabel: function () {
+      return this._('wxwork-app-parseChatMsg.label.palette');
+    },
+    icon: 'wxwork.svg',
+    inputs: 1,
+    outputs: 1,
+    oneditprepare: function () {
+      const node = this;
+
+      $('#node-input-mode').typedInput({
+        types: [
+          {
+            value: node.mode,
+            options: MODE_OPTIONS.map((item) => {
+              item.label = node._(item.i18n);
+              return item;
+            }),
+          },
+        ],
+      });
+    },
+  });
+</script>
+
+<script type="text/html" data-help-name="wxwork-app-parseChatMsg"></script>

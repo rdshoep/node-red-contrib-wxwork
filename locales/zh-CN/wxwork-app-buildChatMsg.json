@@ -1,0 +1,10 @@
+{
+  "wxwork-app-buildChatMsg": {
+    "label": {
+      "app": "应用",
+      "property": "属性",
+      "label": "对话：构建消息",
+      "palette": "构建对话消息"
+    }
+  }
+}

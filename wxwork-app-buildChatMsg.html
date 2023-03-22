@@ -1,0 +1,54 @@
+<script type="text/html" data-template-name="wxwork-app-buildChatMsg">
+  <div class="form-row">
+    <label for="node-input-app">
+      <i class="fa fa-globe"></i>
+      <span data-i18n="wxwork-app-buildChatMsg.label.app"></span>
+    </label>
+    <input type="text" style="width: 270px" id="node-input-app" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-property">
+      <i class="fa fa-tag"></i>
+      <span data-i18n="wxwork-app-buildChatMsg.label.property"></span>
+    </label>
+    <input type="text" id="node-input-property" placeholder="Property" />
+    <input type="hidden" id="node-input-property-type" />
+  </div>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('wxwork-app-buildChatMsg', {
+    defaults: {
+      app: {
+        type: 'wxwork app',
+        required: true,
+      },
+      property: {
+        value: 'replyChatMsg',
+      },
+      propertyType: {
+        value: 'msg',
+      },
+    },
+    category: 'wxwork',
+    color: '#338CFF',
+    label: function () {
+      return this._('wxwork-app-buildChatMsg.label.label');
+    },
+    paletteLabel: function () {
+      return this._('wxwork-app-buildChatMsg.label.palette');
+    },
+    icon: 'wxwork.svg',
+    inputs: 1,
+    outputs: 1,
+    oneditprepare: function () {
+      $('#node-input-property').typedInput({
+        type: 'msg',
+        types: ['msg'],
+        typeField: '#node-input-property-type',
+      });
+    },
+  });
+</script>
+
+<script type="text/html" data-help-name="wxwork-app-buildChatMsg"></script>

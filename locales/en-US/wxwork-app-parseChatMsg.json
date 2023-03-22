@@ -1,0 +1,12 @@
+{
+  "wxwork-app-parseChatMsg": {
+    "label": {
+      "app": "App",
+      "mode": "Mode",
+      "palette": "parse chat msg"
+    },
+    "chat": "Chat",
+    "parseMode": "parse mode",
+    "authMode": "auth mode"
+  }
+}

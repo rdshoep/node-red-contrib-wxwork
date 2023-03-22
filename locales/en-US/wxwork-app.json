@@ -1,0 +1,11 @@
+{
+  "wxwork-app": {
+    "label": {
+      "label": "WxworkApp",
+      "name": "AppName",
+      "messageToken": "MsgToken",
+      "messageEncodingAESKey": "MsgAESKey",
+      "useProxy": "Proxy"
+    }
+  }
+}

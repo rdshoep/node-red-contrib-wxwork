@@ -1,0 +1,11 @@
+{
+  "wxwork-app": {
+    "label": {
+      "label": "企业微信应用",
+      "name": "应用名称",
+      "messageToken": "消息Token",
+      "messageEncodingAESKey": "消息AESKey",
+      "useProxy": "网络代理"
+    }
+  }
+}

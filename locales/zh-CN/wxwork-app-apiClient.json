@@ -1,0 +1,13 @@
+{
+  "wxwork-app-apiClient": {
+    "label": {
+      "palette": "API调用",
+      "app": "应用",
+      "property": "属性",
+      "funcion": "功能"
+    },
+    "function": {
+      "sendAppMessage": "发送应用消息"
+    }
+  }
+}

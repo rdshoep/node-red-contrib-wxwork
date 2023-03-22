@@ -1,0 +1,12 @@
+{
+  "wxwork-app-parseChatMsg": {
+    "label": {
+      "app": "应用",
+      "mode": "模式",
+      "palette": "解析对话消息"
+    },
+    "chat": "对话",
+    "parseMode": "解析模式",
+    "authMode": "认证模式"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "wxwork-app-buildChatMsg": {
+    "label": {
+      "app": "App",
+      "property": "Property",
+      "label": "Chat：build msg",
+      "palette": "build chat msg"
+    }
+  }
+}

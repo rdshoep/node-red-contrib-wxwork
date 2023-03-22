@@ -1,0 +1,155 @@
+<script type="text/html" data-template-name="wxwork app">
+  <div class="form-row">
+    <label for="node-config-input-name">
+      <i class="fa fa-tag"></i>
+      <span data-i18n="wxwork-app.label.name"></span>
+    </label>
+    <input
+      type="text"
+      id="node-config-input-name"
+      placeholder="your wxwork AppName"
+    />
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-corpId"
+      ><i class="fa fa-tag"></i> CorpId</label
+    >
+    <input
+      type="text"
+      id="node-config-input-corpId"
+      placeholder="your wxwork company's corpId"
+    />
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-agentId"
+      ><i class="fa fa-tag"></i> AgentId</label
+    >
+    <input
+      type="text"
+      id="node-config-input-agentId"
+      placeholder="your wxwork app's agentId"
+    />
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-agentSecret"
+      ><i class="fa fa-tag"></i> AgentSecret</label
+    >
+    <input
+      type="password"
+      id="node-config-input-agentSecret"
+      placeholder="your wxwork app's agentSecret"
+    />
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-messageToken">
+      <i class="fa fa-tag"></i>
+      <span data-i18n="wxwork-app.label.messageToken"></span>
+    </label>
+    <input
+      type="password"
+      id="node-config-input-messageToken"
+      placeholder="your wxwork app receive message's token"
+    />
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-messageEncodingAESKey">
+      <i class="fa fa-tag"></i>
+      <span data-i18n="wxwork-app.label.messageEncodingAESKey"></span>
+    </label>
+    <input
+      type="password"
+      id="node-config-input-messageEncodingAESKey"
+      placeholder="your wxwork app receive message's encodingAESKey"
+    />
+  </div>
+  <div class="form-row">
+    <input
+      type="checkbox"
+      id="node-config-input-useProxy"
+      style="display: inline-block; width: auto; margin-top: -1px"
+    />
+    <label
+      for="node-config-input-useProxy"
+      style="width: 83px; line-height: 34px;"
+    >
+      <span data-i18n="wxwork-app.label.useProxy"></span>
+    </label>
+    <div
+      id="node-config-input-useProxy-row"
+      style="display: inline-block; visibility: hidden; width: 70%"
+    >
+      <input type="text" style="width: 100%" id="node-config-input-proxy" />
+    </div>
+  </div>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('wxwork app', {
+    defaults: {
+      name: {
+        value: '',
+        required: true,
+      },
+      corpId: {
+        value: '',
+        required: true,
+        validate: RED.validators.regex(/^[\S]+$/),
+      },
+      agentId: {
+        value: '',
+        validate: RED.validators.regex(/^[\S]+$/),
+      },
+      agentSecret: {
+        value: '',
+        required: true,
+        validate: RED.validators.regex(/^[\S]+$/),
+      },
+      messageToken: {
+        value: '',
+      },
+      messageEncodingAESKey: {
+        value: '',
+      },
+      proxy: {
+        type: 'http proxy',
+        required: false,
+      },
+    },
+    label: function () {
+      return `${this._('wxwork-app.label.label')}(${this.name})`;
+    },
+    credentials: {
+      agentSecret: { type: 'password' },
+      messageToken: { type: 'password' },
+      messageEncodingAESKey: { type: 'password' },
+    },
+    category: 'config',
+    oneditprepare: function () {
+      const node = this;
+      function updateProxyOptions() {
+        if ($('#node-config-input-useProxy').is(':checked')) {
+          $('#node-config-input-useProxy-row').css('visibility', 'visible');
+        } else {
+          $('#node-config-input-useProxy-row').css('visibility', 'hidden');
+        }
+        RED.tray.resize();
+      }
+      if (node.proxy) {
+        $('#node-config-input-useProxy').prop('checked', true);
+      } else {
+        $('#node-config-input-useProxy').prop('checked', false);
+      }
+      updateProxyOptions();
+      $('#node-config-input-useProxy').on('click', function () {
+        updateProxyOptions();
+      });
+    },
+    oneditsave: function () {
+      if (!$('#node-config-input-useProxy').is(':checked')) {
+        $('#node-config-input-proxy').val('_ADD_');
+      }
+    },
+  });
+</script>
+
+<script type="text/html" data-help-name="wxwork app"></script>

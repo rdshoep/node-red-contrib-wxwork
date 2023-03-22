@@ -1,0 +1,87 @@
+<script type="text/html" data-template-name="wxwork-app-apiClient">
+  <div class="form-row">
+    <label for="node-input-app">
+      <i class="fa fa-globe"></i>
+      <span data-i18n="wxwork-app-apiClient.label.name"></span>
+    </label>
+    <input type="text" style="width: 270px" id="node-input-app" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-property">
+      <i class="fa fa-tag"></i>
+      <span data-i18n="wxwork-app-apiClient.label.property"></span>
+    </label>
+    <input type="text" id="node-input-property" placeholder="Property" />
+    <input type="hidden" id="node-input-property-type" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-func">
+      <i class="fa fa-globe"></i>
+      <span data-i18n="wxwork-app-apiClient.label.funcion"></span>
+    </label>
+    <input type="text" id="node-input-func" />
+  </div>
+</script>
+
+<script type="text/javascript">
+  const API_TYPE_OPTIONS = [
+    {
+      value: 'sendAppMessage',
+      i18n: 'wxwork-app-apiClient.function.sendAppMessage',
+    },
+  ];
+  RED.nodes.registerType('wxwork-app-apiClient', {
+    defaults: {
+      app: {
+        type: 'wxwork app',
+        required: true,
+      },
+      property: {
+        value: 'payload',
+      },
+      propertyType: {
+        value: 'msg',
+      },
+      func: {
+        value: API_TYPE_OPTIONS[0].value,
+      },
+    },
+    category: 'wxwork',
+    color: '#338CFF',
+    label: function () {
+      const func = this.func;
+      return (
+        'API: ' +
+        this._(API_TYPE_OPTIONS.find((item) => item.value === func).i18n)
+      );
+    },
+    paletteLabel: function () {
+      return this._('wxwork-app-apiClient.label.palette');
+    },
+    icon: 'wxwork.svg',
+    inputs: 1,
+    outputs: 1,
+    oneditprepare: function () {
+      const node = this;
+      $('#node-input-property').typedInput({
+        type: 'msg',
+        types: ['msg'],
+        typeField: '#node-input-property-type',
+      });
+
+      $('#node-input-func').typedInput({
+        types: [
+          {
+            value: this.mode,
+            options: API_TYPE_OPTIONS.map((item) => {
+              item.label = node._(item.i18n);
+              return item;
+            }),
+          },
+        ],
+      });
+    },
+  });
+</script>
+
+<script type="text/html" data-help-name="wxwork-app-apiClient"></script>

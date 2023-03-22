@@ -1,0 +1,13 @@
+{
+  "wxwork-app-apiClient": {
+    "label": {
+      "palette": "API Invoke",
+      "app": "App",
+      "property": "Property",
+      "funcion": "Function"
+    },
+    "function": {
+      "sendAppMessage": "sendAppMessage"
+    }
+  }
+}
