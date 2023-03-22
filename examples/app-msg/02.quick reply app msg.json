@@ -1,0 +1,96 @@
+[
+  {
+    "id": "9d32e7d4eb8137d8",
+    "type": "http in",
+    "z": "bd26395b02a2e3ba",
+    "name": "",
+    "url": "/message",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 280,
+    "y": 460,
+    "wires": [
+      [
+        "236b3109eab61ad5"
+      ]
+    ]
+  },
+  {
+    "id": "236b3109eab61ad5",
+    "type": "wxwork-app-parseChatMsg",
+    "z": "bd26395b02a2e3ba",
+    "app": "82210a1ade7887b6",
+    "mode": "default",
+    "x": 500,
+    "y": 460,
+    "wires": [
+      [
+        "a81ce16c1fa92e1b"
+      ]
+    ]
+  },
+  {
+    "id": "a81ce16c1fa92e1b",
+    "type": "function",
+    "z": "bd26395b02a2e3ba",
+    "name": "生成返回内容（<5s场景）",
+    "func": "msg.replyChatMsg = {\n    fromUserName: msg.chatMsg.toUserName,\n    toUserName: msg.chatMsg.fromUserName,\n    content: `收到您的消息（${msg.chatMsg.content}）`\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 770,
+    "y": 460,
+    "wires": [
+      [
+        "b4667bb23d91091c"
+      ]
+    ]
+  },
+  {
+    "id": "b4667bb23d91091c",
+    "type": "wxwork-app-buildChatMsg",
+    "z": "bd26395b02a2e3ba",
+    "app": "82210a1ade7887b6",
+    "property": "replyChatMsg",
+    "propertyType": "msg",
+    "x": 1060,
+    "y": 460,
+    "wires": [
+      [
+        "81bb1cf1f1c4ea38"
+      ]
+    ]
+  },
+  {
+    "id": "81bb1cf1f1c4ea38",
+    "type": "http response",
+    "z": "bd26395b02a2e3ba",
+    "name": "",
+    "statusCode": "200",
+    "headers": {},
+    "x": 1320,
+    "y": 460,
+    "wires": []
+  },
+  {
+    "id": "82210a1ade7887b6",
+    "type": "wxwork app",
+    "name": "OpenAi",
+    "corpId": "ww8c0c995acd36c73b",
+    "agentId": "1000003",
+    "agentSecret": "__PWRD__",
+    "messageToken": "__PWRD__",
+    "messageEncodingAESKey": "__PWRD__",
+    "proxy": "4cf0133ba1b665e4"
+  },
+  {
+    "id": "4cf0133ba1b665e4",
+    "type": "http proxy",
+    "name": "proxy server",
+    "url": "http://your.proxyserver.com",
+    "noproxy": []
+  }
+]

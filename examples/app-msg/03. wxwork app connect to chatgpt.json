@@ -1,0 +1,165 @@
+[
+  {
+    "id": "ce0a5ffa93e24e7b",
+    "type": "simple-chatgpt",
+    "z": "bd26395b02a2e3ba",
+    "name": "chatgpt",
+    "Token": "your chatgpt api token",
+    "SystemSetting": "",
+    "x": 940,
+    "y": 640,
+    "wires": [
+      [
+        "ed1a946393369e38"
+      ]
+    ]
+  },
+  {
+    "id": "265e672504a72f7f",
+    "type": "change",
+    "z": "bd26395b02a2e3ba",
+    "name": "读取消息内容",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "chatMsg.content",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 740,
+    "y": 640,
+    "wires": [
+      [
+        "ce0a5ffa93e24e7b"
+      ]
+    ]
+  },
+  {
+    "id": "befdd0bd043c7ea2",
+    "type": "http in",
+    "z": "bd26395b02a2e3ba",
+    "name": "",
+    "url": "/async/message",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 300,
+    "y": 640,
+    "wires": [
+      [
+        "68d14d342bd396b4",
+        "5d8ba0c7af3c4459"
+      ]
+    ]
+  },
+  {
+    "id": "68d14d342bd396b4",
+    "type": "wxwork-app-parseChatMsg",
+    "z": "bd26395b02a2e3ba",
+    "app": "82210a1ade7887b6",
+    "mode": "default",
+    "x": 540,
+    "y": 640,
+    "wires": [
+      [
+        "265e672504a72f7f"
+      ]
+    ]
+  },
+  {
+    "id": "2ee2bf1f3683d521",
+    "type": "http response",
+    "z": "bd26395b02a2e3ba",
+    "name": "响应事件请求",
+    "statusCode": "200",
+    "headers": {},
+    "x": 740,
+    "y": 580,
+    "wires": []
+  },
+  {
+    "id": "48817949d88be2bf",
+    "type": "wxwork-app-apiClient",
+    "z": "bd26395b02a2e3ba",
+    "app": "82210a1ade7887b6",
+    "property": "payload",
+    "propertyType": "msg",
+    "func": "sendAppMessage",
+    "x": 1330,
+    "y": 640,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ed1a946393369e38",
+    "type": "function",
+    "z": "bd26395b02a2e3ba",
+    "name": "构建应用消息",
+    "func": "msg.payload = {\n    touser: msg.chatMsg.fromUserName,\n    msgtype: 'text',\n    text: {\n        content: `问题：${msg.chatMsg.content}\\n-------------\\n${msg.payload.trim()}`\n    }\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1120,
+    "y": 640,
+    "wires": [
+      [
+        "48817949d88be2bf"
+      ]
+    ]
+  },
+  {
+    "id": "5d8ba0c7af3c4459",
+    "type": "change",
+    "z": "bd26395b02a2e3ba",
+    "name": "清空payload",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 530,
+    "y": 580,
+    "wires": [
+      [
+        "2ee2bf1f3683d521"
+      ]
+    ]
+  },
+  {
+    "id": "82210a1ade7887b6",
+    "type": "wxwork app",
+    "name": "OpenAi",
+    "corpId": "your wxwork's corpId",
+    "agentId": "1000001",
+    "agentSecret": "__PWRD__",
+    "messageToken": "__PWRD__",
+    "messageEncodingAESKey": "__PWRD__",
+    "proxy": "4cf0133ba1b665e4"
+  },
+  {
+    "id": "4cf0133ba1b665e4",
+    "type": "http proxy",
+    "name": "proxy server",
+    "url": "http://your.proxyserver.com",
+    "noproxy": []
+  }
+]

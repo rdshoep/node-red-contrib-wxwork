@@ -1,0 +1,55 @@
+[
+  {
+    "id": "2dac4d350ef872cb",
+    "type": "http in",
+    "z": "bd26395b02a2e3ba",
+    "name": "",
+    "url": "/message",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 280,
+    "y": 340,
+    "wires": [
+      [
+        "14455fbd9469591f"
+      ]
+    ]
+  },
+  {
+    "id": "14455fbd9469591f",
+    "type": "wxwork-app-parseChatMsg",
+    "z": "bd26395b02a2e3ba",
+    "app": "82210a1ade7887b6",
+    "mode": "auth",
+    "x": 740,
+    "y": 340,
+    "wires": [
+      [
+        "81908b902be55ab3"
+      ]
+    ]
+  },
+  {
+    "id": "81908b902be55ab3",
+    "type": "http response",
+    "z": "bd26395b02a2e3ba",
+    "name": "",
+    "statusCode": "200",
+    "headers": {},
+    "x": 1320,
+    "y": 340,
+    "wires": []
+  },
+  {
+    "id": "82210a1ade7887b6",
+    "type": "wxwork app",
+    "name": "OpenAi",
+    "corpId": "ww8c0c995acd36c73b",
+    "agentId": "1000003",
+    "agentSecret": "__PWRD__",
+    "messageToken": "__PWRD__",
+    "messageEncodingAESKey": "__PWRD__",
+    "proxy": ""
+  }
+]

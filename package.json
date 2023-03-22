@@ -1,6 +1,6 @@
 {
   "name": "@nnc/node-red-contrib-wxwork",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A group of Node-RED nodes for wxwork(weixin enterprise version)",
   "main": "index.js",
   "scripts": {
@@ -46,5 +46,8 @@
   },
   "lint-staged": {
     "*.{js,css,md,html}": "prettier --write"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
