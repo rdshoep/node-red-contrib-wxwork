@@ -20,9 +20,25 @@ class WxworkApiClient {
       baseURL: 'https://qyapi.weixin.qq.com/cgi-bin/',
       timeout: 10000,
     };
-    if (options.proxy) {
-      const proxyConfig = options.proxy;
-      const proxyURL = new URL(proxyConfig.url);
+    this.setupProxyInfo(axiosConfig, options);
+    this.axios = Axios.create(axiosConfig);
+    this.options = options;
+  }
+
+  // same to the node-red http-request node
+  // https://github.com/node-red/node-red/blob/master/packages/node_modules/%40node-red/nodes/core/network/21-httprequest.js#L520
+  setupProxyInfo(axiosConfig, options) {
+    let proxyUrl = process.env.http_proxy || process.env.HTTP_PROXY;
+    let noproxy = (process.env.no_proxy || process.env.NO_PROXY || '').split(',');
+    const proxyConfig = options.proxy;
+    if (proxyConfig) {
+      proxyUrl = proxyConfig.url;
+      noproxy = proxyConfig.noproxy;
+    }
+
+    const enable = proxyUrl && noproxy.every(url => axiosConfig.baseURL.indexOf(url) <= 0);
+    if (enable) {
+      const proxyURL = new URL(proxyUrl);
       const proxyOptions = {
         proxy: {
           protocol: proxyURL.protocol,
@@ -49,8 +65,7 @@ class WxworkApiClient {
       axiosConfig.httpAgent = new HttpProxyAgent(proxyOptions);
       axiosConfig.httpsAgent = new HttpsProxyAgent(proxyOptions);
     }
-    this.axios = Axios.create(axiosConfig);
-    this.options = options;
+    return axiosConfig;
   }
 
   //  获取token
