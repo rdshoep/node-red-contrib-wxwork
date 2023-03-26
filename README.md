@@ -2,6 +2,10 @@
 
 A group Node-RED nodes for wxwork(wechat enterprise version)
 
+[![npm version](https://img.shields.io/npm/v/@nnc/node-red-contrib-wxwork.svg)](https://www.npmjs.com/package/@nnc/node-red-contrib-wxwork)
+[![npm downloads](https://img.shields.io/npm/dm/@nnc/node-red-contrib-wxwork.svg)](https://www.npmjs.com/package/@nnc/node-red-contrib-wxwork)
+[![license](https://img.shields.io/github/license/rdshoep/node-red-contrib-wxwork.svg)](https://github.com/rdshoep/node-red-contrib-wxwork/blob/main/LICENSE)
+
 ![Node-RED: Wxwork Solution Demos](https://raw.githubusercontent.com/rdshoep/node-red-contrib-wxwork/main/assets/message.png)
 
 ### Prerequisites
